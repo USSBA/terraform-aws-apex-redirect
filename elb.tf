@@ -1,7 +1,7 @@
 resource "aws_lb" "apex" {
-  name = var.service_name
-  internal           = false
-  load_balancer_type = "network"
+  name                             = var.service_name
+  internal                         = false
+  load_balancer_type               = "network"
   enable_cross_zone_load_balancing = true
 
   dynamic "subnet_mapping" {
@@ -13,7 +13,7 @@ resource "aws_lb" "apex" {
   }
 }
 resource "aws_lb_target_group" "apex" {
-  name = "${var.service_name}-targets"
+  name                 = "${var.service_name}-targets"
   port                 = 80
   protocol             = "TCP"
   target_type          = "ip"
@@ -24,7 +24,7 @@ resource "aws_lb_target_group" "apex" {
   # and this is the work around
   stickiness {
     enabled = false
-    type = "lb_cookie"
+    type    = "lb_cookie"
   }
 }
 resource "aws_lb_listener" "apex" {
