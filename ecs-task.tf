@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "apex" {
     [
       {
         name      = var.service_name
-        image     = "ussba/apex-redirect:v1.0"
+        image     = "ussba/apex-redirect:v1.1"
         essential = true
         cpu       = var.task_cpu
         memory    = var.task_memory
@@ -12,6 +12,22 @@ resource "aws_ecs_task_definition" "apex" {
           {
             name  = "REDIRECT_FQDN"
             value = var.redirect_fqdn
+          },
+          {
+            name  = "HSTS_HEADER_VALUE"
+            value = var.hsts_header_value
+          },
+          {
+            name  = "AWS_S3_BUCKET_NAME"
+            value = var.aws_s3_bucket_name
+          },
+          {
+            name  = "AWS_S3_KEY_FULLCHAIN_PEM"
+            value = var.aws_s3_key_fullchain_pem
+          },
+          {
+            name  = "AWS_S3_KEY_PRIVATEKEY_PEM"
+            value = var.aws_s3_key_privatekey_pem
           },
         ]
         logConfiguration = {
@@ -26,13 +42,16 @@ resource "aws_ecs_task_definition" "apex" {
           {
             containerPort : 80
           },
+          {
+            containerPort : 443
+          },
         ]
       }
   ])
   execution_role_arn       = aws_iam_role.ecs_execution.arn
+  task_role_arn            = aws_iam_role.ecs_task.arn
   network_mode             = "awsvpc"
   cpu                      = var.task_cpu
   memory                   = var.task_memory
   requires_compatibilities = ["FARGATE"]
 }
-
