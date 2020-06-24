@@ -1,3 +1,4 @@
 .terraform
 *.tf
 docker-*.sh
+!docker-entrypoint.sh

@@ -13,7 +13,7 @@ resource "aws_lb" "apex" {
   }
 }
 resource "aws_lb_target_group" "apex" {
-  name                 = "${var.service_name}-targets"
+  name                 = var.service_name
   port                 = 80
   protocol             = "TCP"
   target_type          = "ip"
@@ -27,6 +27,29 @@ resource "aws_lb_target_group" "apex" {
     type    = "lb_cookie"
   }
 }
+resource "aws_lb_target_group" "apex_ssl" {
+  name                 = "${var.service_name}-ssl"
+  port                 = 443
+  protocol             = "TCP"
+  target_type          = "ip"
+  vpc_id               = data.aws_subnet.target[0].vpc_id
+  deregistration_delay = 20
+
+  # apparently there is a bug with stickiness and NLBs right now
+  # and this is the work around
+  stickiness {
+    enabled = false
+    type    = "lb_cookie"
+  }
+  # If ssl_heath_check_port_override is set then this will iterate only once and apply the override port
+  dynamic "health_check" {
+    for_each = var.ssl_heath_check_port_override > -1 ? [1] : []
+    content {
+      port     = var.ssl_heath_check_port_override
+      protocol = "TCP"
+    }
+  }
+}
 resource "aws_lb_listener" "apex" {
   load_balancer_arn = aws_lb.apex.arn
   port              = 80
@@ -35,5 +58,15 @@ resource "aws_lb_listener" "apex" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.apex.arn
+  }
+}
+resource "aws_lb_listener" "apex_ssl" {
+  load_balancer_arn = aws_lb.apex.arn
+  port              = 443
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.apex_ssl.arn
   }
 }

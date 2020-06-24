@@ -20,6 +20,12 @@ resource "aws_ecs_service" "apex" {
     container_port   = 80
   }
 
+  load_balancer {
+    target_group_arn = aws_lb_target_group.apex_ssl.arn
+    container_name   = var.service_name
+    container_port   = 443
+  }
+
   network_configuration {
     subnets          = data.aws_subnet.target[*].id
     security_groups  = [aws_security_group.apex.id]
@@ -33,6 +39,12 @@ resource "aws_security_group" "apex" {
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
