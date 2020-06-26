@@ -58,7 +58,7 @@ variable "task_memory" {
   default     = 512
 }
 variable "is_certificate_valid" {
-  type        = boolean
+  type        = bool
   description = "If testing with an invalid certificate [eg. Self-Signed Cert], change this to false to ensure the NLB Health Check doesn't kill your service"
   default     = true
 }
