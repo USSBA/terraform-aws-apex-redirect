@@ -14,6 +14,7 @@ variable "subnet_ids" {
 variable "cluster_name" {
   type        = string
   description = "An ECS cluster name."
+  default     = "default"
 }
 variable "redirect_fqdn" {
   type        = string
@@ -22,6 +23,7 @@ variable "redirect_fqdn" {
 variable "hsts_header_value" {
   type        = string
   description = "A valid HSTS header value (eg. max-age=31536000; preload)"
+  default     = "max-age=31536000"
 }
 variable "aws_s3_bucket_name" {
   type        = string
@@ -55,8 +57,8 @@ variable "task_memory" {
   description = "A Fargate compliance Memory allocation. (default: 512)"
   default     = 512
 }
-variable "ssl_heath_check_port_override" {
-  type        = number
-  description = "Don't change this unless you have an invalid certificate but still need to test your connection"
-  default     = -1
+variable "is_certificate_valid" {
+  type        = bool
+  description = "If testing with an invalid certificate [eg. Self-Signed Cert], change this to false to ensure the NLB Health Check doesn't kill your service"
+  default     = true
 }
