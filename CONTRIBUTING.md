@@ -6,7 +6,7 @@ Developing in the open creates a healthier working environment, a more collabora
 
 While this functions currently only as a prototype, we welcome contributions.
 
-Contributions that include appropriate unit tests are more likely to be accepted by  the team.
+Contributions that include appropriate unit tests are more likely to be accepted by the team.
 
 ## Feedback
 

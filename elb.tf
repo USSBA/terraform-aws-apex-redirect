@@ -41,11 +41,11 @@ resource "aws_lb_target_group" "apex_ssl" {
     enabled = false
     type    = "lb_cookie"
   }
-  # If ssl_heath_check_port_override is set then this will iterate only once and apply the override port
+  # If var.is_certificate_valid is set to false, then this will set the health_check port to 80
   dynamic "health_check" {
-    for_each = var.ssl_heath_check_port_override > -1 ? [1] : []
+    for_each = var.is_certificate_valid != true ? [80] : []
     content {
-      port     = var.ssl_heath_check_port_override
+      port     = health_check.value
       protocol = "TCP"
     }
   }
