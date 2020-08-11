@@ -62,3 +62,9 @@ variable "is_certificate_valid" {
   description = "If testing with an invalid certificate [eg. Self-Signed Cert], change this to false to ensure the NLB Health Check doesn't kill your service"
   default     = true
 }
+
+variable "log_retention_in_days" {
+  type        = number
+  description = "Log Groups by default retain all logs forever."
+  default     = 0
+}
