@@ -33,11 +33,12 @@ module "apex_redirect_examplecom" {
   source  = "USSBA/apex-redirect/aws"
   version = "~> 1.0"
 
-  service_name                  = "myApexRedirectExampleCom"
-  subnet_ids                    = ["subnet-11111111", "subnet-22222222", "subnet-33333333"]
-  cluster_name                  = "my-ecs-cluster
-  redirect_fqdn                 = "www.example.com"
-  hsts_header_value             = "max-age=31536000; includeSubDomains; preload"
+  service_name          = "myApexRedirectExampleCom"
+  subnet_ids            = ["subnet-11111111", "subnet-22222222", "subnet-33333333"]
+  cluster_name          = "my-ecs-cluster
+  redirect_fqdn         = "www.example.com"
+  hsts_header_value     = "max-age=31536000; includeSubDomains; preload"
+  log_retention_in_days = 90
 
   # Key Details
   aws_s3_bucket_name        = "my-certificate-bucket"
