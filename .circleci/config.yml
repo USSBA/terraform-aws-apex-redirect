@@ -4,22 +4,7 @@ executors:
   terraform:
     docker:
     - image: hashicorp/terraform:light
-  docker-poirot:
-    docker:
-      - image: ghcr.io/ussba/sba-containers/poirot:3.9
-commands:
-  poirotscan:
-    steps:
-    - checkout
-    - run:
-        name: Scanning for PII (Poirot)
-        command: |
-          poirot --patterns https://raw.githubusercontent.com/USSBA/terraform-aws-apex-redirect/master/poirot-patterns.txt --revlist="master^..HEAD"
 jobs:
-  poirot:
-    executor: docker-poirot
-    steps:
-    - poirotscan
   terraform-format-check:
     executor: terraform
     steps:
@@ -32,5 +17,4 @@ workflows:
   version: 2
   branch_workflow:
     jobs:
-    - poirot
     - terraform-format-check
