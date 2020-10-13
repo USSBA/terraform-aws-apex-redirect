@@ -1,16 +1,12 @@
 version: 2.1
 
 executors:
-  default:
+  terraform:
     docker:
-      - image: circleci/node
-  docker-awscli:
-    docker:
-      - image: ussba/cc-docker-git-aws
+    - image: hashicorp/terraform:light
   docker-poirot:
     docker:
-      - image: ussba/poirot:3
-
+      - image: ghcr.io/ussba/sba-containers/poirot:3.9
 commands:
   poirotscan:
     steps:
@@ -25,8 +21,7 @@ jobs:
     steps:
     - poirotscan
   terraform-format-check:
-    docker:
-    - image: hashicorp/terraform:light
+    executor: terraform
     steps:
     - checkout
     - run:
