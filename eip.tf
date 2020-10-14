@@ -5,4 +5,3 @@ resource "aws_eip" "apex" {
     Name = var.service_name
   }
 }
-
