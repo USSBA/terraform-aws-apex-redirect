@@ -19,13 +19,6 @@ resource "aws_lb_target_group" "apex" {
   target_type          = "ip"
   vpc_id               = data.aws_subnet.target[0].vpc_id
   deregistration_delay = 20
-
-  # apparently there is a bug with stickiness and NLBs right now
-  # and this is the work around
-  stickiness {
-    enabled = false
-    type    = "lb_cookie"
-  }
 }
 resource "aws_lb_target_group" "apex_ssl" {
   name                 = "${var.service_name}-ssl"
@@ -35,12 +28,6 @@ resource "aws_lb_target_group" "apex_ssl" {
   vpc_id               = data.aws_subnet.target[0].vpc_id
   deregistration_delay = 20
 
-  # apparently there is a bug with stickiness and NLBs right now
-  # and this is the work around
-  stickiness {
-    enabled = false
-    type    = "lb_cookie"
-  }
   # If var.is_certificate_valid is set to false, then this will set the health_check port to 80
   dynamic "health_check" {
     for_each = var.is_certificate_valid != true ? [80] : []
