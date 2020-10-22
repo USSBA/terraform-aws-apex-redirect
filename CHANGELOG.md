@@ -1,5 +1,10 @@
 # Releases
 
+## v3.0.0
+
+- Removes workaround we had in place [long-standing bug](https://github.com/terraform-providers/terraform-provider-aws/issues/10494) in aws provider.
+- Pins aws provider to a minimum of 3.11 (and less than v4).
+
 ## v2.0.1
 
 - Bugfix: Terraform fixed a workaround we had in place for a [long-standing bug](https://github.com/terraform-providers/terraform-provider-aws/issues/10494) in aws provider.
