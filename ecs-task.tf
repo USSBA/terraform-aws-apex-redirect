@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "apex" {
     [
       {
         name      = var.service_name
-        image     = "ussba/apex-redirect:v1.1"
+        image     = "public.ecr.aws/ussba/apex-redirect:v1.1.0"
         essential = true
         cpu       = var.task_cpu
         memory    = var.task_memory

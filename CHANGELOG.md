@@ -1,5 +1,13 @@
 # Releases
 
+## v3.1.1
+
+- Image will now be pushed and pulled from an AWS public ECR repository
+
+## v3.1.0
+
+- Support for Terraform versions 0.13 and above to (but not including) 1.0
+
 ## v3.0.0
 
 - Removes workaround we had in place [long-standing bug](https://github.com/terraform-providers/terraform-provider-aws/issues/10494) in aws provider.
