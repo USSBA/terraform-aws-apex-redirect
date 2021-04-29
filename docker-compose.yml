@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  caddy:
+    image: caddy:latest
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - /mnt/efs/caddy:/efs
+    environment:
+      APEX_DOMAIN: management.ussba.io
+      LONG_DOMAIN: www.management.ussba.io
+      XDG_DATA_HOME: /efs
+    command:
+    - /bin/sh
+    - "-c"
+    - echo -e "$${APEX_DOMAIN}\nredir https://$${LONG_DOMAIN}" > /etc/caddy/Caddyfile &&
+      caddy run --config /etc/caddy/Caddyfile --adapter caddyfile

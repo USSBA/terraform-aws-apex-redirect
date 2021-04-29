@@ -1,5 +1,13 @@
 # Releases
 
+## v4.0.0
+
+- *BREAKING:* Switching underlying webserver from nginx to caddy
+- *BREAKING:* Caddy will handle issuance of certificates, so S3 configuration is no longer needed
+- Certificates will be stored in an EFS drive
+- EFS Drive will be created
+- You will no longer need to Bring Your Own certificates, in a bucket or otherwise, so consider cleaning up any cert creation/renewal
+
 ## v3.1.1
 
 - Image will now be pushed and pulled from an AWS public ECR repository
