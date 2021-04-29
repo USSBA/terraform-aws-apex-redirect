@@ -30,29 +30,7 @@ Needing to workaround all of this led us to create this module.
 
 ## Usage
 
-Using a pre-provisioned certificate in an S3 bucket
-
-```terraform
-module "apex_redirect_examplecom" {
-  source  = "USSBA/apex-redirect/aws"
-  version = "~> 2.0"
-
-  service_name          = "myApexRedirectExampleCom"
-  subnet_ids            = ["subnet-11111111", "subnet-22222222", "subnet-33333333"]
-  cluster_name          = "my-ecs-cluster
-  redirect_fqdn         = "www.example.com"
-  hsts_header_value     = "max-age=31536000; includeSubDomains; preload"
-  log_retention_in_days = 90
-
-  # Key Details
-  aws_s3_bucket_name        = "my-certificate-bucket"
-  aws_s3_key_fullchain_pem  = "path/to/my/certificate/example.com-publiccert-fullchain.pem"
-  aws_s3_key_privatekey_pem = "path/to/my/certificate/example.com-privatekey.pem"
-  is_certificate_valid      = true    # Set to false if testing with self-signed cert
-}
-```
-
-If you don't have a certificate yet, check out our [LetsEncrypt Automated Renewal container](https://github.com/USSBA/sba-certificate-renewal) (terraform module coming soon)
+[See our examples directory](./examples/)
 
 ## Contributing
 

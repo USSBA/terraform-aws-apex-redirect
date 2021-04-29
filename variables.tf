@@ -11,11 +11,6 @@ variable "subnet_ids" {
   type        = list(string)
   description = "A list of subnet ids that will be associated with the network load balancer."
 }
-variable "cluster_name" {
-  type        = string
-  description = "An ECS cluster name."
-  default     = "default"
-}
 variable "redirect_fqdn" {
   type        = string
   description = "The FQDN where redirected traffic will be directed."
@@ -25,23 +20,16 @@ variable "hsts_header_value" {
   description = "A valid HSTS header value (eg. max-age=31536000; preload)"
   default     = "max-age=31536000"
 }
-variable "aws_s3_bucket_name" {
-  type        = string
-  description = "The bucket name containing SSL certificates"
-}
-variable "aws_s3_key_fullchain_pem" {
-  type        = string
-  description = "The s3 path to fullchain pem file"
-}
-variable "aws_s3_key_privatekey_pem" {
-  type        = string
-  description = "The s3 path to private key pem file"
-}
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #  OPTIONAL
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+variable "cluster_name" {
+  type        = string
+  description = "An ECS cluster name."
+  default     = "default"
+}
 variable "eip_allocation_ids" {
   type        = list(string)
   description = "A list of EIP allocation ids that will be maped to your subnets. (Leave empty to have module create them.)"
@@ -66,5 +54,20 @@ variable "is_certificate_valid" {
 variable "log_retention_in_days" {
   type        = number
   description = "Log Groups by default retain all logs forever."
-  default     = 0
+  default     = 90
+}
+variable "apex_fqdn" {
+  type        = string
+  description = "The FQDN the server will be running on.  Required for certificate generation by Caddy, but defaults to the redirect fqdn with the subdomain stripped off."
+  default     = ""
+}
+variable "tags" {
+  type        = map(any)
+  description = "Optional; Map of key-value tags to apply to all resources"
+  default     = {}
+}
+variable "tags_efs" {
+  type        = map(any)
+  description = "Optional; Map of key-value tags to apply to efs resources"
+  default     = {}
 }
