@@ -33,7 +33,6 @@ variable "cluster_name" {
 variable "desired_count" {
   type        = number
   description = "A number that specifies the desired number of tasks to run"
-  default     = ""
 }
 variable "eip_allocation_ids" {
   type        = list(string)
