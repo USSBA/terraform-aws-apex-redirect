@@ -30,6 +30,11 @@ variable "cluster_name" {
   description = "An ECS cluster name."
   default     = "default"
 }
+variable "desired_count" {
+  type        = number
+  description = "A number that specifies the desired number of tasks to run"
+  default     = ""
+}
 variable "eip_allocation_ids" {
   type        = list(string)
   description = "A list of EIP allocation ids that will be maped to your subnets. (Leave empty to have module create them.)"
