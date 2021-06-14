@@ -1,5 +1,9 @@
 # Releases
 
+## v4.0.1
+
+- Added new variable to allow for an override to the `desired_count` of the apex service, by default the number of running tasks matches the number of subnets.
+
 ## v4.0.0
 
 - *BREAKING:* Switching underlying webserver from nginx to caddy

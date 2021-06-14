@@ -50,7 +50,6 @@ variable "is_certificate_valid" {
   description = "If testing with an invalid certificate [eg. Self-Signed Cert], change this to false to ensure the NLB Health Check doesn't kill your service"
   default     = true
 }
-
 variable "log_retention_in_days" {
   type        = number
   description = "Log Groups by default retain all logs forever."
@@ -70,4 +69,9 @@ variable "tags_efs" {
   type        = map(any)
   description = "Optional; Map of key-value tags to apply to efs resources"
   default     = {}
+}
+variable "desired_count" {
+  type        = number
+  description = "Optional; The desired number of running containers.  By default will match the number of subnets""
+  default     = -1
 }

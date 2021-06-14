@@ -7,7 +7,7 @@ resource "aws_ecs_service" "apex" {
   name                               = var.service_name
   cluster                            = var.cluster_name
   task_definition                    = aws_ecs_task_definition.apex.arn
-  desired_count                      = length(var.subnet_ids)
+  desired_count                      = var.desired_count < 0 ? length(var.subnet_ids) : var.desired_count
   launch_type                        = "FARGATE"
   health_check_grace_period_seconds  = 10
   force_new_deployment               = true
