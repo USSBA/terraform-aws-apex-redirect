@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "apex" {
           <<COMMAND
             echo -e "$APEX_DOMAIN
               header Strict-Transport-Security $HSTS_HEADER_VALUE
-              redir https://$REDIRECT_DOMAIN 301" > /etc/caddy/Caddyfile && \
+              redir https://$REDIRECT_DOMAIN{uri} 301" > /etc/caddy/Caddyfile && \
             caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
           COMMAND
         ]
