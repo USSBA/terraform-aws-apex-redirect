@@ -1,5 +1,9 @@
 # Releases
 
+## v4.0.1
+
+- Bugfix: Added {uri} to redir directive
+
 ## v4.0.0
 
 - *BREAKING:* Switching underlying webserver from nginx to caddy
