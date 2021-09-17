@@ -71,3 +71,13 @@ variable "tags_efs" {
   description = "Optional; Map of key-value tags to apply to efs resources"
   default     = {}
 }
+variable "enable_execute_command" {
+  type        = bool
+  description = "Optional; Enable executing into running tasks using ECS Exec.  NOTE: Enabling this grants tasks ssmmessages and logs write permissions"
+  default     = false
+}
+variable "wait_for_steady_state" {
+  type        = bool
+  description = "Optional; Configure terraform to wait for ECS service to be deployed and stable before terraform finishes.  Note that Fargate deployments can take a remarkably long time to reach a steady state, and thus your terraform deployment times will increase by a few minutes.  Defaults to false"
+  default     = false
+}

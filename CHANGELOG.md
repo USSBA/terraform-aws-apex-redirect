@@ -1,5 +1,10 @@
 # Releases
 
+## v4.1.1
+
+- Adding variable 'enable_execute_command'
+- Adding variable 'wait_for_steady_state'
+
 ## v4.0.1
 
 - Bugfix: Added {uri} to redir directive
