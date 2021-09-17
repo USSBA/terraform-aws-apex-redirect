@@ -8,11 +8,14 @@ resource "aws_ecs_service" "apex" {
   cluster                            = var.cluster_name
   task_definition                    = aws_ecs_task_definition.apex.arn
   desired_count                      = length(var.subnet_ids)
+  enable_execute_command             = var.enable_execute_command
   launch_type                        = "FARGATE"
   health_check_grace_period_seconds  = 10
   force_new_deployment               = true
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
+  wait_for_steady_state              = var.wait_for_steady_state
+
 
   load_balancer {
     target_group_arn = aws_lb_target_group.apex.arn
