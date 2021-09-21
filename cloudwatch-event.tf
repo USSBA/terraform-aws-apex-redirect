@@ -12,7 +12,7 @@ resource "aws_lambda_function" "apex_restart" {
   runtime       = "python3.9"
   timeout       = 10
 
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  source_code_hash = data.archive_file.apex_restart.output_base64sha256
 
   environment {
     variables = {
@@ -96,7 +96,7 @@ resource "aws_iam_role_policy_attachment" "apex_restart" {
 resource "aws_cloudwatch_event_rule" "apex_restart" {
   name                = var.service_name
   description         = "triggers lambda that forces a new deployment of ${var.service_name}"
-  schedule_expression = "rate(30 minutes)"
+  schedule_expression = "cron(0 5 1 * ? *)"#"rate(30 minutes)"
   is_enabled          = true
 }
 
