@@ -1,5 +1,9 @@
 # Releases
 
+## v4.2.1
+
+- Adding variable 'monthly_restart_enabled'. This will create a cloudwatch event & lambda function to update the apex redirect service with new containers.
+
 ## v4.1.1
 
 - Adding variable 'enable_execute_command'

@@ -15,6 +15,7 @@ module "simple" {
   hsts_header_value      = "max-age=31536000"
   log_retention_in_days  = 90
   enable_execute_command = true
+  monthly_restart_enabled= true
   wait_for_steady_state  = true
   tags = {
     Name      = "apex-redirect-simple"
