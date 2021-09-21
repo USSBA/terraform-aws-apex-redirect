@@ -18,16 +18,16 @@ resource "aws_lambda_function" "apex_restart" {
 
   environment {
     variables = {
-      CLUSTER        = "${var.cluster_name}"
-      SERVICE        = "${var.service_name}"
-      DESIRED_COUNT  = length(var.subnet_ids)
+      CLUSTER       = "${var.cluster_name}"
+      SERVICE       = "${var.service_name}"
+      DESIRED_COUNT = length(var.subnet_ids)
     }
   }
 }
 
 resource "aws_iam_role" "apex_restart" {
   count = var.monthly_restart_enabled ? 1 : 0
-  name = var.service_name
+  name  = var.service_name
 
   assume_role_policy = <<EOF
 {

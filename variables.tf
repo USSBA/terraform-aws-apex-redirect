@@ -82,7 +82,7 @@ variable "wait_for_steady_state" {
   default     = false
 }
 variable "monthly_restart_enabled" {
-  type = bool
+  type        = bool
   description = "Optional; Enables a cloudwatch event and lambda to perform a monthly container restart"
-  default = false
+  default     = false
 }
