@@ -1,11 +1,11 @@
 data "archive_file" "apex_restart" {
   type        = "zip"
-  source_dir  = "../../functions/"
-  output_path = "../../functions/apex_restart.zip"
+  source_dir  = "../../apex-restart/functions/"
+  output_path = "../../apex-restart/functions/apex_restart.zip"
 }
 
 resource "aws_lambda_function" "apex_restart" {
-  filename      = "../../functions/apex_restart.zip"
+  filename      = "../../apex-restart/functions/apex_restart.zip"
   function_name = var.service_name
   role          = aws_iam_role.apex_restart.arn
   handler       = "apex-restart.lambda_handler"
@@ -93,7 +93,7 @@ resource "aws_iam_role_policy_attachment" "apex_restart" {
 resource "aws_cloudwatch_event_rule" "apex_restart" {
   name                = var.service_name
   description         = "triggers lambda that forces a new deployment of ${var.service_name}"
-  schedule_expression = "cron(0 5 1 * ? *)"
+  schedule_expression = "cron(0 5 1,15 * ? *)"
   is_enabled          = true
 }
 
