@@ -16,6 +16,7 @@ module "simple" {
   log_retention_in_days  = 90
   enable_execute_command = true
   wait_for_steady_state  = true
+  monthly_restart_enabled = true
   tags = {
     Name      = "apex-redirect-simple"
     CreatedBy = "terraform"
