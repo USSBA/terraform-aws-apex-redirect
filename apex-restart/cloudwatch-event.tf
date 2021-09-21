@@ -1,11 +1,11 @@
 data "archive_file" "apex_restart" {
   type        = "zip"
-  source_dir  = "../../apex-restart/functions/"
-  output_path = "../../apex-restart/functions/apex_restart.zip"
+  source_dir  = "${path.module}/functions/"
+  output_path = "${path.module}/functions/apex_restart.zip"
 }
 
 resource "aws_lambda_function" "apex_restart" {
-  filename      = "../../apex-restart/functions/apex_restart.zip"
+  filename      = "${path.module}/functions/apex_restart.zip"
   function_name = var.service_name
   role          = aws_iam_role.apex_restart.arn
   handler       = "apex-restart.lambda_handler"
