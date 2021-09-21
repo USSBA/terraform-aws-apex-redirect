@@ -1,5 +1,10 @@
 # Releases
 
+## v4.2.2
+
+- Bugfix: Corrected hardcoded service_name value
+- Changed 'monthly_restart_enabled' to be 'apex_restart_enabled' as this happens twice a month.
+
 ## v4.2.1
 
 - Adding variable 'monthly_restart_enabled'. This will create a cloudwatch event & lambda function to update the apex redirect service with new containers.

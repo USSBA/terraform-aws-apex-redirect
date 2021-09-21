@@ -1,6 +1,7 @@
 module "apex-restart" {
-  count = var.monthly_restart_enabled ? 1 : 0
+  count = var.apex_restart_enabled ? 1 : 0
   source = "./apex-restart/"
 
-  service_name = "apex-redirect-simple"
+  service_name = var.service_name
+  cluster_name = var.cluster_name
 }
