@@ -16,14 +16,14 @@ resource "aws_lambda_function" "apex_restart" {
 
   environment {
     variables = {
-      CLUSTER       = "${var.cluster_name}"
-      SERVICE       = "${var.service_name}"
+      CLUSTER = "${var.cluster_name}"
+      SERVICE = "${var.service_name}"
     }
   }
 }
 
 resource "aws_iam_role" "apex_restart" {
-  name  = var.service_name
+  name = var.service_name
 
   assume_role_policy = <<EOF
 {
