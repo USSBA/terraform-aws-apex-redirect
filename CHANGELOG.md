@@ -1,5 +1,10 @@
 # Releases
 
+## v4.3.0
+- Feature: Add container-level healthchecks to help with self-termination on a wonky SSL state
+- Feature: Add Route53 HealthChecks
+- Feature: New variable 'healthcheck_sns_arn' to be notified of a failed Route53 HealthCheck
+
 ## v4.2.2
 
 - Bugfix: Corrected hardcoded service_name value
