@@ -48,13 +48,25 @@ resource "aws_ecs_task_definition" "apex" {
         command = [
           "/bin/sh",
           "-c",
-          <<COMMAND
+          <<-COMMAND
+            echo "127.0.0.1 $APEX_DOMAIN" >> /etc/hosts;
+            apk add curl;
             echo -e "$APEX_DOMAIN
-              header Strict-Transport-Security $HSTS_HEADER_VALUE
-              redir https://$REDIRECT_DOMAIN{uri} 301" > /etc/caddy/Caddyfile && \
+            header Strict-Transport-Security $HSTS_HEADER_VALUE
+            redir https://$REDIRECT_DOMAIN{uri} 301
+            log {
+              output stdout
+            }" > /etc/caddy/Caddyfile && \
             caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
           COMMAND
         ]
+        # Set the container healthcheck
+        healthCheck = {
+          command     = ["CMD-SHELL", "curl https://${local.apex_fqdn}/?ecs_container_healthcheck"]
+          interval    = 60
+          retries     = 10
+          startPeriod = 300
+        }
       }
   ])
   execution_role_arn       = aws_iam_role.ecs_execution.arn

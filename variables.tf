@@ -32,7 +32,7 @@ variable "cluster_name" {
 }
 variable "eip_allocation_ids" {
   type        = list(string)
-  description = "A list of EIP allocation ids that will be maped to your subnets. (Leave empty to have module create them.)"
+  description = "A list of EIP allocation ids that will be mapped to your subnets. (Leave empty to have module create them.)"
   default     = []
 }
 variable "task_cpu" {
@@ -85,4 +85,9 @@ variable "apex_restart_enabled" {
   type        = bool
   description = "Optional; Enables a cloudwatch event and lambda to perform a monthly container restart"
   default     = false
+}
+variable "healthcheck_sns_arn" {
+  type        = string
+  description = "Optional; An SNS topic you'd like to have notified when the Route53 HealthCheck for this service fails"
+  default     = null
 }
