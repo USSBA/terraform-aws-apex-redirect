@@ -47,7 +47,7 @@ variable "task_memory" {
 }
 variable "desired_count" {
   type        = number
-  description = "The number of fagate task to run. (default: equal to the number of subnet_ids provided)"
+  description = "The number of Fargate task(s) to run. (default: equal to the number of subnet_ids provided)"
   default     = 0
 }
 variable "is_certificate_valid" {

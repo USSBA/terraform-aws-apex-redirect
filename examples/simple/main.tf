@@ -1,26 +1,20 @@
-data "aws_vpc" "default" {
-  default = true
-}
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
-}
 module "simple" {
-  source = "../../"
-  #source  = "USSBA/apex-redirect/aws"
-  #version = "~> 4.0"
 
-  service_name           = "apex-redirect-simple2"
-  subnet_ids             = slice(tolist(data.aws_subnet_ids.default.ids), 0, 2)
-  redirect_fqdn          = "www.management.ussba.io"
+  #source  = "git::https://github.com/USSBA/terraform-aws-apex-redirect.git?ref=v5.0.0"
+
+  #source  = "USSBA/apex-redirect/aws"
+  #version = "~> 5.0"
+
+  service_name           = "apex-redirect"
+  subnet_ids             = ["subnet-00000000000000001","subnet-00000000000000002"]
+  desired_count          = 1
+  redirect_fqdn          = "www.example.com"
   hsts_header_value      = "max-age=31536000"
+  log_group_name         = "/simple/example/apex-redirect"
   log_retention_in_days  = 90
   enable_execute_command = true
   apex_restart_enabled   = true
   wait_for_steady_state  = true
-  tags = {
-    Name      = "apex-redirect-simple"
-    CreatedBy = "terraform"
-  }
 }
 
 output "apex-redirect-module" {
