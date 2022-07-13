@@ -7,7 +7,7 @@ resource "aws_ecs_service" "apex" {
   name                               = var.service_name
   cluster                            = var.cluster_name
   task_definition                    = aws_ecs_task_definition.apex.arn
-  desired_count                      = length(var.subnet_ids)
+  desired_count                      = var.desired_count > 0 ? var.desired_count : length(var.subnet_ids)
   enable_execute_command             = var.enable_execute_command
   launch_type                        = "FARGATE"
   health_check_grace_period_seconds  = 10
@@ -39,25 +39,29 @@ resource "aws_security_group" "apex" {
   name        = "fargate-${var.service_name}"
   description = "A fargate security group for service ${var.service_name}"
   vpc_id      = data.aws_subnet.target[0].vpc_id
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
+resource "aws_security_group_rule" "apex_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.apex.id
+}
+resource "aws_security_group_rule" "apex_ingress_80" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_group_id = aws_security_group.apex.id
+}
+resource "aws_security_group_rule" "apex_ingress_443" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.apex.id
+}
+
 
 # Allow task into EFS
 resource "aws_security_group_rule" "allow_fargate_into_efs" {

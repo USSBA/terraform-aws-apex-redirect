@@ -45,12 +45,21 @@ variable "task_memory" {
   description = "A Fargate compliance Memory allocation. (default: 512)"
   default     = 512
 }
+variable "desired_count" {
+  type        = number
+  description = "The number of Fargate task(s) to run. (default: equal to the number of subnet_ids provided)"
+  default     = 0
+}
 variable "is_certificate_valid" {
   type        = bool
   description = "If testing with an invalid certificate [eg. Self-Signed Cert], change this to false to ensure the NLB Health Check doesn't kill your service"
   default     = true
 }
 
+variable "log_group_name" {
+  type        = string
+  description = "A name for the CloudWatch Log Group that will created."
+}
 variable "log_retention_in_days" {
   type        = number
   description = "Log Groups by default retain all logs forever."
