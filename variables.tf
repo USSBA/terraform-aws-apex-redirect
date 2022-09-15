@@ -25,6 +25,26 @@ variable "hsts_header_value" {
 #  OPTIONAL
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+variable "command" {
+  type = list(string)
+  description = "An override for the command used generate the Caddyfile and start the service."
+  default = [
+    "/bin/sh",
+    "-c",
+    <<-COMMAND
+      echo "127.0.0.1 $APEX_DOMAIN" >> /etc/hosts;
+      apk add curl;
+      echo -e "$APEX_DOMAIN
+      header Strict-Transport-Security $HSTS_HEADER_VALUE
+      redir https://$REDIRECT_DOMAIN{uri} 301
+      log {
+        output stdout
+      }" > /etc/caddy/Caddyfile && \
+      caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+    COMMAND
+  ]
+}
 variable "cluster_name" {
   type        = string
   description = "An ECS cluster name."

@@ -1,5 +1,8 @@
 # Releases
 
+## v5.0.1
+- An override varibale for the container command has been added. Please see the `var.command` default for context.
+
 ## v5.0.0
 - Update Terrafrom and AWS Provider version capabilities
 - Adding variable `desired_count` that will allow you to directly override the default desired count equal to the number of subnets provided
