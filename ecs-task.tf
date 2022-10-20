@@ -45,21 +45,8 @@ resource "aws_ecs_task_definition" "apex" {
           containerPath = local.container_storage_path
         }]
 
-        command = [
-          "/bin/sh",
-          "-c",
-          <<-COMMAND
-            echo "127.0.0.1 $APEX_DOMAIN" >> /etc/hosts;
-            apk add curl;
-            echo -e "$APEX_DOMAIN
-            header Strict-Transport-Security $HSTS_HEADER_VALUE
-            redir https://$REDIRECT_DOMAIN{uri} 301
-            log {
-              output stdout
-            }" > /etc/caddy/Caddyfile && \
-            caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
-          COMMAND
-        ]
+        command = var.command
+
         # Set the container healthcheck
         healthCheck = {
           command     = ["CMD-SHELL", "curl https://${local.apex_fqdn}/?ecs_container_healthcheck"]

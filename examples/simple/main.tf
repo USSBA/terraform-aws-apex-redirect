@@ -6,7 +6,7 @@ module "simple" {
   #version = "~> 5.0"
 
   service_name           = "apex-redirect"
-  subnet_ids             = ["subnet-00000000000000001","subnet-00000000000000002"]
+  subnet_ids             = ["subnet-00000000000000001", "subnet-00000000000000002"]
   desired_count          = 1
   redirect_fqdn          = "www.example.com"
   hsts_header_value      = "max-age=31536000"
