@@ -100,3 +100,23 @@ variable "healthcheck_sns_arn" {
   description = "Optional; An SNS topic you'd like to have notified when the Route53 HealthCheck for this service fails"
   default     = null
 }
+variable "command" {
+  type        = list(string)
+  description = "Optional: An override for the containers start command."
+  default = [
+    "/bin/sh",
+    "-c",
+    <<-COMMAND
+      echo "127.0.0.1 $APEX_DOMAIN" >> /etc/hosts;
+      apk add curl;
+      echo -e "$APEX_DOMAIN
+      header Strict-Transport-Security $HSTS_HEADER_VALUE
+      redir https://$REDIRECT_DOMAIN{uri} 301
+      log {
+        output stdout
+      }" > /etc/caddy/Caddyfile && \
+      caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+    COMMAND
+  ]
+}
+
