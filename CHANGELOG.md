@@ -1,9 +1,7 @@
 # Releases
 
-## v5.0.1
+## v5.0.2
 - The containers start `command` is now an input variable, but the default value is exactly the same as found in previous versions
-
-## v5.0.0
 - Update Terrafrom and AWS Provider version capabilities
 - Adding variable `desired_count` that will allow you to directly override the default desired count equal to the number of subnets provided
 - Adding variable `log_group_name` so that YOU have more control over the log group naming convention
