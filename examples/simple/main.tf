@@ -1,9 +1,6 @@
 module "simple" {
-
-  #source  = "git::https://github.com/USSBA/terraform-aws-apex-redirect.git?ref=v5.0.0"
-
-  #source  = "USSBA/apex-redirect/aws"
-  #version = "~> 5.0"
+  source  = "USSBA/apex-redirect/aws"
+  version = "~> 5.0"
 
   service_name           = "apex-redirect"
   subnet_ids             = ["subnet-00000000000000001", "subnet-00000000000000002"]
