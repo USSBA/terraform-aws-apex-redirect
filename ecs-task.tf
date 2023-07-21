@@ -53,6 +53,7 @@ resource "aws_ecs_task_definition" "apex" {
           interval    = 60
           retries     = 10
           startPeriod = 300
+          timeout     = 5
         }
       }
   ])
