@@ -1,14 +1,35 @@
+locals {
+  mappings = [
+    for k, v in zipmap(var.subnet_ids, length(var.eip_allocation_ids) > 0 ? var.eip_allocation_ids : aws_eip.apex[*].id) : {
+      id            = k,
+      allocation_id = v
+      ipv6_address  = try(one([for y in var.ipv6_subnet_mappings : y.address if y.id == k]), null)
+    }
+  ]
+}
+
 resource "aws_lb" "apex" {
   name                             = var.service_name
   internal                         = false
   load_balancer_type               = "network"
   enable_cross_zone_load_balancing = true
+  ip_address_type                  = length(var.ipv6_subnet_mappings) > 0 ? "dualstack" : "ipv4"
 
   dynamic "subnet_mapping" {
-    for_each = zipmap(var.subnet_ids, length(var.eip_allocation_ids) > 0 ? var.eip_allocation_ids : aws_eip.apex[*].id)
+    for_each = local.mappings
     content {
-      subnet_id     = subnet_mapping.key
-      allocation_id = subnet_mapping.value
+      subnet_id     = subnet_mapping.value.id
+      allocation_id = subnet_mapping.value.allocation_id
+      ipv6_address  = subnet_mapping.value.ipv6_address
+    }
+  }
+
+  dynamic "access_logs" {
+    for_each = length(trim(var.access_log_bucket, " ")) > 0 ? ["iterate once"] : []
+    content {
+      bucket  = var.access_log_bucket
+      prefix  = var.access_log_prefix
+      enabled = true
     }
   }
 }

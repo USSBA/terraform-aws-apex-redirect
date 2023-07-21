@@ -9,6 +9,7 @@ CloudFront
 cloudwatch
 CSTATE
 DNS
+Dualstack
 ECR
 EFS
 hardcoded
@@ -18,6 +19,7 @@ hostnames
 HQVulnerabilityManagement
 HTTPS
 IPs
+ipv
 lifecycle
 Nginx
 ParameterStore
@@ -27,6 +29,7 @@ resolvedWhen
 Scalable
 SNS
 SSL
+subnet
 subnets
 Terraform
 TLS

@@ -1,5 +1,9 @@
 # Releases
 
+## v6.0.0
+- Access Logging can now be configured.
+- Dualstack mode can now be enabled by providing a list of [{ id = $subnet-id, address = $ipv6-address }].
+
 ## v5.0.2
 - The containers start `command` is now an input variable, but the default value is exactly the same as found in previous versions
 - Update Terraform and AWS Provider version capabilities

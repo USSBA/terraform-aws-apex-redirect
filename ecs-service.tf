@@ -2,7 +2,9 @@ resource "aws_ecs_service" "apex" {
   depends_on = [
     aws_lb.apex,
     aws_lb_target_group.apex,
-    aws_lb_listener.apex
+    aws_lb_target_group.apex_ssl,
+    aws_lb_listener.apex,
+    aws_lb_listener.apex_ssl
   ]
   name                               = var.service_name
   cluster                            = var.cluster_name
@@ -15,7 +17,6 @@ resource "aws_ecs_service" "apex" {
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
   wait_for_steady_state              = var.wait_for_steady_state
-
 
   load_balancer {
     target_group_arn = aws_lb_target_group.apex.arn
@@ -48,6 +49,15 @@ resource "aws_security_group_rule" "apex_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.apex.id
 }
+resource "aws_security_group_rule" "apex_egress_ipv6" {
+  count             = length(var.ipv6_subnet_mappings) > 0 ? 1 : 0
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.apex.id
+}
 resource "aws_security_group_rule" "apex_ingress_80" {
   type              = "ingress"
   from_port         = 80
@@ -56,12 +66,30 @@ resource "aws_security_group_rule" "apex_ingress_80" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.apex.id
 }
+resource "aws_security_group_rule" "apex_ingress_80_ipv6" {
+  count             = length(var.ipv6_subnet_mappings) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.apex.id
+}
 resource "aws_security_group_rule" "apex_ingress_443" {
   type              = "ingress"
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.apex.id
+}
+resource "aws_security_group_rule" "apex_ingress_443_ipv6" {
+  count             = length(var.ipv6_subnet_mappings) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.apex.id
 }
 
