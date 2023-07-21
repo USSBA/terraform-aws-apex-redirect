@@ -1,5 +1,11 @@
 # Apex Redirect module for Terraform AWS
 
+## Before you begin
+
+### Regarding IPv6
+
+Please note that Terraform currently has an issue with how it records the `subnet_mapping` when using both EIPs and IPv6. As a result when Terraform generates it's plan the NLB will be recreated; therefore,  we have added a life-cycle exception to the `subnet_mapping` property  so that changes will be ignored. This means, YOU as the engineer will need to take direct action to destroy and create the NLB when changes occur to the `subnet_mapping`. This does not apply to IPv4 only configurations.
+
 ## Purpose
 
 If the root of your DNS is serviced by another DNS provider, i.e. an external DNS or AWS account outside of your application environment, you might run into an obscure quirk with DNS.

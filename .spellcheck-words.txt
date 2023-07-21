@@ -12,6 +12,7 @@ DNS
 Dualstack
 ECR
 EFS
+EIPs
 hardcoded
 healthcheck
 HealthChecks
@@ -22,7 +23,9 @@ IPs
 ipv
 lifecycle
 Nginx
+NLB
 ParameterStore
+README
 redit
 redir
 resolvedWhen
