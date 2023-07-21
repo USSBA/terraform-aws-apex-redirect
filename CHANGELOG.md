@@ -1,5 +1,9 @@
 # Releases
 
+## v6.0.1
+- Identified an issue with Terraform and how it records the NLB `subnet_mapping` in state as a result we have added a life-cycle that will ignore `subnet_mapping` changes.
+- See the README for clarification.
+
 ## v6.0.0
 - Access Logging can now be configured.
 - Dualstack mode can now be enabled by providing a list of [{ id = $subnet-id, address = $ipv6-address }].

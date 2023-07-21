@@ -9,6 +9,12 @@ locals {
 }
 
 resource "aws_lb" "apex" {
+  lifecycle {
+    ignore_changes = [
+      subnet_mapping
+    ]
+  }
+
   name                             = var.service_name
   internal                         = false
   load_balancer_type               = "network"
