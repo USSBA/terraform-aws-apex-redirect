@@ -1,5 +1,8 @@
 # Releases
 
+## v7.0.0
+- Provider version 5.0 support with a minimal Terraform version of 1.5.
+
 ## v6.0.1
 - Identified an issue with Terraform and how it records the NLB `subnet_mapping` in state as a result we have added a life-cycle that will ignore `subnet_mapping` changes.
 - See the README for clarification.
