@@ -104,9 +104,10 @@ resource "aws_cloudwatch_event_target" "apex_restart" {
 }
 
 resource "aws_lambda_permission" "apex_restart" {
-  statement_id  = "AllowExecutionFromCloudWatch"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.apex_restart.function_name
+  statement_id = "AllowExecutionFromCloudWatch"
+  action       = "lambda:InvokeFunction"
+  #function_name = aws_lambda_function.apex_restart.function_name
+  function_name = aws_lambda_function.apex_restart.arn
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.apex_restart.arn
 }

@@ -1,5 +1,9 @@
 # Releases
 
+## v7.0.1
+- When the module is used to provision EIPs the name tag will now append a count.index.
+- The aws_lambda_permission resource now uses the ARN of the lambda function.
+
 ## v7.0.0
 - Provider version 5.0 support with a minimal Terraform version of 1.5.
 
