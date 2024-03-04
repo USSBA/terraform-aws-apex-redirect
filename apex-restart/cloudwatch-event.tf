@@ -94,7 +94,7 @@ resource "aws_cloudwatch_event_rule" "apex_restart" {
   name                = var.service_name
   description         = "triggers lambda that forces a new deployment of ${var.service_name}"
   schedule_expression = "cron(0 5 1,15 * ? *)"
-  is_enabled          = true
+  state               = "ENABLED"
 }
 
 resource "aws_cloudwatch_event_target" "apex_restart" {
