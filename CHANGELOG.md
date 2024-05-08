@@ -1,5 +1,8 @@
 # Releases
 
+## v7.0.3
+- Fixed an issue with hsts_header_value interpolation
+
 ## v7.0.2
 - Redefined examples
 - Terraform min version is now 1.6
