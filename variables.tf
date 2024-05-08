@@ -53,7 +53,7 @@ variable "command" {
       bind 127.0.0.1 [::1]
       apk add curl;
       echo -e "$APEX_DOMAIN
-      header Strict-Transport-Security $HSTS_HEADER_VALUE
+      header Strict-Transport-Security \"$HSTS_HEADER_VALUE\"
       redir https://$REDIRECT_DOMAIN{uri} 301
       log {
         output stdout
