@@ -1,10 +1,8 @@
 name: 'Integration Tests'
 on:
-  push:
+  pull_request:
     branches:
-      - '**'
-    tags-ignore:
-      - '**'
+      - master
 
 defaults:
   run:
@@ -24,7 +22,7 @@ jobs:
       - name: 'Install Terraform'
         uses: 'hashicorp/setup-terraform@v3'
         with:
-          terraform_version: '1.6.1'
+          terraform_version: '1.9.5'
 
       - name: 'check formatting'
         run: |
@@ -39,7 +37,7 @@ jobs:
       - name: 'Install Terraform'
         uses: 'hashicorp/setup-terraform@v3'
         with:
-          terraform_version: '1.6.1'
+          terraform_version: '1.9.5'
 
       - name: 'validate module'
         run: |

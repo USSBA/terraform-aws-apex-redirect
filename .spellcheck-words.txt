@@ -18,6 +18,7 @@ healthcheck
 HealthChecks
 hostnames
 HQVulnerabilityManagement
+hsts
 HTTPS
 IPs
 ipv
@@ -38,3 +39,4 @@ Terraform
 TLS
 URI
 webserver
+
