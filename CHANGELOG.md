@@ -1,5 +1,8 @@
 # Releases
 
+## v7.1.0
+- Terraform v1.9 is now the minimum supported version.
+
 ## v7.0.3
 - Fixed an issue with hsts_header_value interpolation
 
