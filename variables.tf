@@ -85,6 +85,12 @@ variable "enable_execute_command" {
   default     = false
 }
 
+variable "image" {
+  type        = string
+  description = "Container image for the redirect service. Pin by digest, e.g. caddy:2.11.9@sha256:..."
+  default     = "caddy:latest"
+}
+
 # Logging
 variable "log_retention_in_days" {
   type        = number

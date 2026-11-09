@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "apex" {
     [
       {
         name        = var.service_name
-        image       = "caddy:latest"
+        image       = var.image
         essential   = true
         cpu         = var.task_cpu
         memory      = var.task_memory
